@@ -50,8 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AliasTest.cs" />
     <Compile Include="MatrixHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TraceTest.cs" />
+    <Compile Include="TransposeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Matrix\MatrixAreForKids.csproj">
