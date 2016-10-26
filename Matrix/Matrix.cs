@@ -51,16 +51,26 @@ namespace MatrixAreForKids
             this.matrix = matrix;
         }
 
+        /// <summary>
+        /// Returns the value at position (x,y) in this matrix
+        /// </summary>
         public double At(int x, int y)
         {
             return this.matrix[y][x];
         }
 
+        /// <summary>
+        /// Sets the value at position (x,y) in this matrix
+        /// </summary>
         public void Set(int x, int y, double value)
         {
             this.matrix[y][x] = value;
         }
 
+        /// <summary>
+        /// Returns a string representation of this matrix
+        /// </summary>
+        /// <returns></returns>
         public string RepresentAsString()
         {
             string s = "";
@@ -86,6 +96,10 @@ namespace MatrixAreForKids
             return this.RepresentAsString();
         }
 
+        /// <summary>
+        /// Returns a copy of this matrix by cloning the inner jagged array
+        /// </summary>
+        /// <returns></returns>
         public Matrix Clone()
         {
             double[][] cloned = Matrix.CloneJagged(this.matrix);
@@ -228,6 +242,11 @@ namespace MatrixAreForKids
         }
         #endregion
 
+        /// <summary>
+        /// Returns a new matrix which does not have the given row
+        /// </summary>
+        /// <param name="row">Row to exclude</param>
+        /// <returns>Matrix without row</returns>
         public Matrix ExcludeRow(int row)
         {
             double[][] rawMatrix = Matrix.CloneJagged(this.matrix);
@@ -237,6 +256,11 @@ namespace MatrixAreForKids
             return new Matrix(rawMatrix);
         }
 
+        /// <summary>
+        /// Returns a new matrix which does not have the given column
+        /// </summary>
+        /// <param name="col">Column to exclude</param>
+        /// <returns>Matrix without col</returns>
         public Matrix ExcludeCol(int col)
         {
             double[][] rawMatrix = Matrix.CloneJagged(this.matrix);
@@ -249,6 +273,12 @@ namespace MatrixAreForKids
             return new Matrix(rawMatrix);
         }
 
+        /// <summary>
+        /// Returns a new matrix which does not have the given row or column
+        /// </summary>
+        /// <param name="row">Row to exclude</param>
+        /// <param name="col">Column to exclude</param>
+        /// <returns>Matrix without row or col</returns>
         public Matrix ExcludeRowCol(int row, int col)
         {
             Matrix m = this.ExcludeRow(row);
@@ -293,6 +323,9 @@ namespace MatrixAreForKids
             return det;
         }
 
+        /// <summary>
+        /// Returns the determinant value of this matrix
+        /// </summary>
         public double Determinant()
         {
             return this._det(this);
@@ -306,6 +339,9 @@ namespace MatrixAreForKids
         }
         #endregion
 
+        /// <summary>
+        /// Returns the trace (tr) value of this matrix.
+        /// </summary>
         public double Trace()
         {
             int target = this.Width;
@@ -324,6 +360,9 @@ namespace MatrixAreForKids
             return sum;
         }
 
+        /// <summary>
+        /// Returns the minor of this matrix.
+        /// </summary>
         public Matrix Minor()
         {
             Matrix newMatrix = this.Clone();
@@ -340,6 +379,9 @@ namespace MatrixAreForKids
             return newMatrix;
         }
 
+        /// <summary>
+        /// Returns the cofactor-matrix of this matrix.
+        /// </summary>
         public Matrix Cofactor()
         {
             Matrix newMatrix = this.Clone();
@@ -359,6 +401,9 @@ namespace MatrixAreForKids
             return newMatrix;
         }
         
+        /// <summary>
+        /// Returns the Adjoint/Adjunct/Adjugate of this matrix (different term, same result)
+        /// </summary>
         public Matrix Adjoint()
         {
             Matrix minor = this.Minor();
@@ -384,6 +429,10 @@ namespace MatrixAreForKids
         }
         #endregion
 
+        /// <summary>
+        /// Returns the inverse of this matrix, using the determinant and the adjoint
+        /// </summary>
+        /// <returns></returns>
         public Matrix Inverse()
         {
             double det = this.Determinant();
@@ -398,11 +447,17 @@ namespace MatrixAreForKids
             return adjointed * (1 / det);
         }
 
+        /// <summary>
+        /// Returns true if the determinant of this matrix is not equal to zero (implies Invertible)
+        /// </summary>
         public bool Invertible()
         {
             return this.Determinant() != 0;
         }
 
+        /// <summary>
+        /// Returns the transpose of this matrix.
+        /// </summary>
         public Matrix Transpose()
         {
             int width = this.Width;
@@ -427,7 +482,11 @@ namespace MatrixAreForKids
         }
         
         #region Static Generator Methods
-        // generate an nxn identity matrix
+        /// <summary>
+        /// Returns an nxn identity matrix
+        /// </summary>
+        /// <param name="n">Size (nxn)</param>
+        /// <returns>nxn identity matrix</returns>
         public static Matrix Identity(int n)
         {
             double[][] ident = new double[n][];
@@ -442,7 +501,9 @@ namespace MatrixAreForKids
             return new Matrix(ident);
         }
 
-        // return raw double[][] jagged-array clone
+        /// <summary>
+        /// Returns a clone of the given jagged array
+        /// </summary>
         public static double[][] CloneJagged(double[][] input)
         {
             return input.Select(s => s.ToArray()).ToArray();
